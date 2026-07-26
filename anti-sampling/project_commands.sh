@@ -13,7 +13,7 @@ hf auth login --token "hf_${RAW}"
 
 bash ./pipeline_gsm8k_0.sh &
 bash ./pipeline_gsm8k_2.sh &
-
+bash ./run_eval_gpqa.sh &
 wait
 
 bash ./collect_results.sh

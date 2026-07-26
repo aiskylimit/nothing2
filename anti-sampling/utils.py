@@ -110,6 +110,25 @@ def load_mmlu(split="train"):
 
     return to_math_format(ret)
 
+def load_gpqa(split="test"):
+    if split != "test":
+        raise ValueError("split must be test")
+    else:
+        ds = load_dataset("fingertap/GPQA-Diamond", split="test")
+    ds.shuffle(seed=42)
+    ret = ds
+        
+    def to_math_format(mmlu_ds):
+        def transform(ex):
+            problem = ex['question']
+            letter = ex['answer']
+            sol = "\\boxed{" + letter + "}"
+            return {'problem': problem, 'solution': sol}
+
+        return mmlu_ds.map(transform, remove_columns=mmlu_ds.column_names)
+
+    return to_math_format(ret)
+
 def load_metamath(split="train"):
     dataset = load_dataset("VoCuc/MetaMathQA-50k-256", split="train")
     dataset = dataset.rename_columns({"query": "problem", "response": "solution"})

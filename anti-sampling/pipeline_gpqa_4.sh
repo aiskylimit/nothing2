@@ -35,22 +35,14 @@ SECONDS=0
 # ================================================================================
 # CONFIGURATION
 # ================================================================================
-seed=62                    # Random seed for reproducibility
-dataset=gsm8k             # Dataset to use (GSM8K math problems)
-exp_dir="experiments_gsm8k_seed62"  # Experiment directory
+seed=42                    # Random seed for reproducibility
+dataset=mmlu               # Dataset to use (MMLU)
+exp_dir="experiments_qpqa"  # Experiment directory
 mkdir -p "${exp_dir}"
 echo -e "${YELLOW}Experiment directory: ${exp_dir}${RESET}"
 
-hf download VoCuc/experiments-gsm8k \
-    student_grads.pt \
-    --local-dir "${exp_dir}"
-
-hf download VoCuc/experiments-gsm8k \
-    --include "traces/holdout/**" \
-    --local-dir "${exp_dir}"
-
 # Accelerate launch command with GPU configuration
-PY="time accelerate launch --config_file acc_config_2.yaml --main_process_port 0"
+PY="time accelerate launch --config_file acc_config_4.yaml --main_process_port 0"
 
 # ================================================================================
 # HYPERPARAMETER GRID GENERATION
@@ -83,7 +75,7 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 # ================================================================================
 teacher="deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"     # Large teacher model
 proxy_student="Qwen/Qwen2.5-3B"                       # Proxy student for gradient computation (same architecture as teacher so we can use the same tokenizer)
-student="meta-llama/Llama-3.2-3B"                    # Target student model attempting to distill from the teacher (different architecture to show that ADS works even when the student and teacher have different architectures)
+student="meta-llama/Llama-3.2-3B"                     # Target student model attempting to distill from the teacher (different architecture to show that ADS works even when the student and teacher have different architectures)
 
 # ================================================================================
 # STAGE EXECUTION HELPER FUNCTION
@@ -112,33 +104,33 @@ run_stage() {
 # ================================================================================
 # Generate traces on holdout data using the teacher model
 # This is used to calculate the proxy student gradients for antidistillation sampling in stage 2
-stage="HOLDOUT"
-trace_name="holdout"
-holdout_sentinel="${exp_dir}/traces/${trace_name}"
-cmd="$PY \
-    gentraces.py \
-    hydra.run.dir=${exp_dir}/metadata/holdout \
-    teacher=${teacher} \
-    exp_dir=${exp_dir} \
-    seed=${seed} \
-    data_split=${dataset}_holdout \
-    max_samples=5120 \
-    batch_size=32 \
-    max_length=1024 \
-    max_prompt_length=512 \
-    trace_name=${trace_name} proxy_student=${proxy_student}"
-run_stage "$stage" "$holdout_sentinel" "$cmd"
+# stage="HOLDOUT"
+# trace_name="holdout"
+# holdout_sentinel="${exp_dir}/traces/${trace_name}"
+# cmd="$PY \
+#     gentraces.py \
+#     hydra.run.dir=${exp_dir}/metadata/holdout \
+#     teacher=${teacher} \
+#     exp_dir=${exp_dir} \
+#     seed=${seed} \
+#     data_split=${dataset}_holdout \
+#     max_samples=2880 \
+#     batch_size=400 \
+#     max_length=1024 \
+#     max_prompt_length=256 \
+#     trace_name=${trace_name} proxy_student=${proxy_student}"
+# run_stage "$stage" "$holdout_sentinel" "$cmd"
 
 # ================================================================================
 # STAGE 2: STUDENT GRADIENT COMPUTATION
 # ================================================================================
 # Compute and save gradients from the proxy student model using the holdout traces
 # These gradients are used for antidistillation sampling in stage 3
-stage="STUDENT GRAD"
-grad_path="${exp_dir}/student_grads.pt"
-grad_sentinel="${grad_path}"
-cmd="$PY save_grad.py ${holdout_sentinel}.yaml --proxy_student=${proxy_student}"
-run_stage "$stage" "$grad_sentinel" "$cmd"
+# stage="STUDENT GRAD"
+# grad_path="${exp_dir}/student_grads.pt"
+# grad_sentinel="${grad_path}"
+# cmd="$PY save_grad.py ${holdout_sentinel}.yaml --proxy_student=${proxy_student}"
+# run_stage "$stage" "$grad_sentinel" "$cmd"
 
 # ================================================================================
 # MAIN PIPELINE LOOP: ANTIDISTILLATION SAMPLING FOR EACH HYPERPARAMETER SET
@@ -153,68 +145,73 @@ for taulameps in "${taulamepss[@]}"; do
     # - tau: controls sampling temperature
     # - lam: weights antidistillation loss (0.0 = no antidistillation sampling)
     # - eps: finite difference approximation precision
-    stage="ADS SAMPLING TAU=${tau}, LAM=${lam}, EPS=${eps}"
-    trace_name="tau${tau}_lam${lam}_eps${eps}"
-    ad_sentinel="${exp_dir}/traces/${trace_name}"
-    # Use larger batch size when no antidistillation sampling (lam=0.0)
-    batch_size=$([[ "$lam" == "0.0e+00" ]] && echo "64" || echo "32")
-    cmd="$PY \
-        gentraces.py \
-        hydra.run.dir=${exp_dir}/metadata/train/${trace_name} \
-        teacher=${teacher} \
-        proxy_student=${proxy_student} \
-        exp_dir=${exp_dir} \
-        seed=${seed} \
-        data_split=${dataset}_train \
-        grad_path=${grad_path} \
-        batch_size=128 \
-        tau=${tau} \
-        lam=${lam} \
-        eps=${eps} \
-        trace_name=${trace_name}"
-    run_stage "$stage" "$ad_sentinel" "$cmd"
+    # stage="ADS SAMPLING TAU=${tau}, LAM=${lam}, EPS=${eps}"
+    # trace_name="tau${tau}_lam${lam}_eps${eps}"
+    # ad_sentinel="${exp_dir}/traces/${trace_name}"
+    # # Use larger batch size when no antidistillation sampling (lam=0.0)
+    # batch_size=$([[ "$lam" == "0.0e+00" ]] && echo "64" || echo "32")
+    # cmd="$PY \
+    #     gentraces.py \
+    #     hydra.run.dir=${exp_dir}/metadata/train/${trace_name} \
+    #     teacher=${teacher} \
+    #     proxy_student=${proxy_student} \
+    #     exp_dir=${exp_dir} \
+    #     seed=${seed} \
+    #     data_split=${dataset}_train \
+    #     grad_path=${grad_path} \
+    #     max_samples=2880 \
+    #     batch_size=200 \
+    #     max_length=1024 \
+    #     max_prompt_length=256 \
+    #     tau=${tau} \
+    #     lam=${lam} \
+    #     eps=${eps} \
+    #     trace_name=${trace_name}"
+    # run_stage "$stage" "$ad_sentinel" "$cmd"
 
     # ============================================================================
     # STAGE 4: STUDENT MODEL DISTILLATION
     # ============================================================================
     # Train student model using traces generated with antidistillation sampling
     # The student model tries to mimic the teacher model's reasoning process using SFT
-    stage="DISTILLATION TAU=${tau}, LAM=${lam}, EPS=${eps}"
-    model_name="student_tau${tau}_lam${lam}_eps${eps}"
-    model_path="${exp_dir}/models/${model_name}"
-    ad_traces="${exp_dir}/traces/tau${tau}_lam${lam}_eps${eps}"
-    distill_sentinel="${model_path}/final"
-    cmd="$PY \
-        distill.py \
-        hydra.run.dir=${exp_dir}/metadata/distill/${model_name} \
-        student=${student} \
-        tokenizer=${student}-Instruct \
-        exp_dir=${exp_dir} \
-        train_traces=${ad_traces} \
-        holdout_traces=${holdout_sentinel} \
-        model_name=${model_name} max_length=1024"
-    run_stage "$stage" "$distill_sentinel" "$cmd"
+    # stage="DISTILLATION TAU=${tau}, LAM=${lam}, EPS=${eps}"
+    # model_name="student_tau${tau}_lam${lam}_eps${eps}"
+    # model_path="${exp_dir}/models/${model_name}"
+    # ad_traces="${exp_dir}/traces/tau${tau}_lam${lam}_eps${eps}"
+    # distill_sentinel="${model_path}/final"
+    # cmd="$PY \
+    #     distill.py \
+    #     hydra.run.dir=${exp_dir}/metadata/distill/${model_name} \
+    #     student=${student} \
+    #     tokenizer=${student}-Instruct \
+    #     exp_dir=${exp_dir} \
+    #     train_traces=${ad_traces} \
+    #     holdout_traces=${holdout_sentinel} \
+    #     model_name=${model_name} max_length=1024"
+    # run_stage "$stage" "$distill_sentinel" "$cmd"
 
     # ============================================================================
     # STAGE 5: STUDENT MODEL EVALUATION
     # ============================================================================
     # Evaluate the distilled student model on test data
     # Measures how well the student performs on unseen examples
-    stage="EVAL STUDENT TAU=${tau}, LAM=${lam}, EPS=${eps}"
-    eval_traces="eval_student_tau${tau}_lam${lam}_eps${eps}"
-    eval_sentinel="${exp_dir}/traces/${eval_traces}"
-    cmd="$PY \
-        gentraces.py \
-        hydra.run.dir=${exp_dir}/metadata/eval/tau${tau}_lam${lam}_eps${eps} \
-        teacher=${distill_sentinel} \
-        teacher_cfg=${model_path}.yaml \
-        use_wandb=false \
-        is_teacher=false \
-        exp_dir=${exp_dir} \
-        seed=${seed} \
-        data_split=${dataset}_test \
-        trace_name=${eval_traces} batch_size=256"
-    run_stage "$stage" "$eval_sentinel" "$cmd"
+    # stage="EVAL STUDENT TAU=${tau}, LAM=${lam}, EPS=${eps}"
+    # eval_traces="eval_student_tau${tau}_lam${lam}_eps${eps}"
+    # eval_sentinel="${exp_dir}/traces/${eval_traces}"
+    # cmd="$PY \
+    #     gentraces.py \
+    #     hydra.run.dir=${exp_dir}/metadata/eval/tau${tau}_lam${lam}_eps${eps} \
+    #     teacher=${distill_sentinel} \
+    #     teacher_cfg=${model_path}.yaml \
+    #     use_wandb=false \
+    #     is_teacher=false \
+    #     exp_dir=${exp_dir} \
+    #     seed=${seed} \
+    #     data_split=${dataset}_test \
+    #     max_samples=2880 \
+    #     batch_size=400 \
+    #     trace_name=${eval_traces} max_length=1024 max_prompt_length=256"
+    # run_stage "$stage" "$eval_sentinel" "$cmd"
 
     # ============================================================================
     # STAGE 6: TEACHER MODEL EVALUATION
@@ -237,10 +234,11 @@ for taulameps in "${taulamepss[@]}"; do
         data_split=${dataset}_test \
         grad_path=${grad_path} \
         batch_size=${batch_size} \
+        max_samples=2880 \
         tau=${tau} \
         lam=${lam} \
         eps=${eps} \
-        trace_name=${eval_traces} batch_size=128"
+        trace_name=${eval_traces} batch_size=256 max_length=1024 max_prompt_length=256"
     run_stage "$stage" "$eval_sentinel" "$cmd"
 done
 
