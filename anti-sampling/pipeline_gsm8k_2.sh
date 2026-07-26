@@ -167,7 +167,7 @@ for taulameps in "${taulamepss[@]}"; do
         seed=${seed} \
         data_split=${dataset}_train \
         grad_path=${grad_path} \
-        batch_size=256 \
+        batch_size=128 \
         tau=${tau} \
         lam=${lam} \
         eps=${eps} \
@@ -213,7 +213,7 @@ for taulameps in "${taulamepss[@]}"; do
         exp_dir=${exp_dir} \
         seed=${seed} \
         data_split=${dataset}_test \
-        trace_name=${eval_traces} batch_size=384"
+        trace_name=${eval_traces} batch_size=256"
     run_stage "$stage" "$eval_sentinel" "$cmd"
 
     # ============================================================================
@@ -240,7 +240,7 @@ for taulameps in "${taulamepss[@]}"; do
         tau=${tau} \
         lam=${lam} \
         eps=${eps} \
-        trace_name=${eval_traces} batch_size=256"
+        trace_name=${eval_traces} batch_size=128"
     run_stage "$stage" "$eval_sentinel" "$cmd"
 done
 
