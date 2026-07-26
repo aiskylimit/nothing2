@@ -41,6 +41,10 @@ exp_dir="experiments_qpqa"  # Experiment directory
 mkdir -p "${exp_dir}"
 echo -e "${YELLOW}Experiment directory: ${exp_dir}${RESET}"
 
+wget -c \
+  "https://huggingface.co/VoCuc/anti-sampling-ckpt/resolve/main/experiments_mmlu_1/student_grads.pt?download=true" \
+  -O "$exp_dir/student_grads.pt"
+
 # Accelerate launch command with GPU configuration
 PY="time accelerate launch --config_file acc_config_4.yaml --main_process_port 0"
 
@@ -127,7 +131,7 @@ run_stage() {
 # Compute and save gradients from the proxy student model using the holdout traces
 # These gradients are used for antidistillation sampling in stage 3
 # stage="STUDENT GRAD"
-# grad_path="${exp_dir}/student_grads.pt"
+grad_path="${exp_dir}/student_grads.pt"
 # grad_sentinel="${grad_path}"
 # cmd="$PY save_grad.py ${holdout_sentinel}.yaml --proxy_student=${proxy_student}"
 # run_stage "$stage" "$grad_sentinel" "$cmd"

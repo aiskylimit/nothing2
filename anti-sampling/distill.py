@@ -178,22 +178,23 @@ def main(cfg: DictConfig):
     # DATASET PREPROCESSING
     # ============================================================================
     # Preprocess training and evaluation traces on the main process
-    if accelerator.is_main_process:
-        # Determine suffix length for different tokenizers to remove extra tokens
-        suffix_len = -1 if "llama" in cfg.tokenizer.lower() else -2
+    # if accelerator.is_main_process:
+    #     # Determine suffix length for different tokenizers to remove extra tokens
+    suffix_len = -1 if "llama" in cfg.tokenizer.lower() else -2
+    
+    def preprocess_function(examples, trace_colname=trace_cfg.trace_colname):
+        """
+        Preprocess reasoning traces for supervised fine-tuning.
         
-        def preprocess_function(examples):
-            """
-            Preprocess reasoning traces for supervised fine-tuning.
-            
-            Converts teacher traces into chat format for student training:
-            - Extracts assistant responses from teacher traces
-            - Creates chat messages with system prompt, user problem, and assistant response
-            - Tokenizes into format suitable for completion-only training
-            """
-            trace_colname = trace_cfg.trace_colname
-            responses = []
-            
+        Converts teacher traces into chat format for student training:
+        - Extracts assistant responses from teacher traces
+        - Creates chat messages with system prompt, user problem, and assistant response
+        - Tokenizes into format suitable for completion-only training
+        """
+        cols = list(examples.keys())
+
+        responses = []
+        if trace_colname in cols:
             # Extract assistant responses from teacher traces
             for response in examples[trace_colname]:
                 # Split on assistant marker to get only the response portion
@@ -201,50 +202,59 @@ def main(cfg: DictConfig):
                 # Replace custom EOS tokens with standard tokenizer EOS
                 fixed_response = fixed_response.replace("<｜end▁of▁sentence｜>", tokenizer.eos_token)
                 responses.append(fixed_response)
-            
-            # Create chat format messages for each example
+        else:
+            for response in examples["solution"]:
+                fixed_response = response + tokenizer.eos_token
+                responses.append(fixed_response)
+
+        if "gemma" in cfg.tokenizer.lower():
+            messages = [[
+            {"role": "user", "content": SYSTEM_PROMPT + "\n\nPromblem:\n" + problem.strip() + "\n"},
+            {"role": "assistant", "content": response.strip()}]
+            for problem, response in zip(examples["problem"], responses)]
+        else:
             messages = [[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": problem.strip()},
                 {"role": "assistant", "content": response.strip()}]
                 for problem, response in zip(examples["problem"], responses)]
-            
-            # Apply chat template and tokenize
-            tokens = tokenizer.apply_chat_template(messages, add_generation_prompt=False)
-            tokens = [toks[:suffix_len] for toks in tokens]  # Remove extra tokens
-            tok_lengths = [len(toks) for toks in tokens]
-            return {"input_ids": tokens, "token_lengths": tok_lengths}
+        
+        # Apply chat template and tokenize
+        tokens = tokenizer.apply_chat_template(messages, add_generation_prompt=False, return_dict=False)
+        tokens = [toks[:suffix_len] for toks in tokens]  # Remove extra tokens
+        tok_lengths = [len(toks) for toks in tokens]
+        return {"input_ids": tokens, "token_lengths": tok_lengths}
 
-        # Process training traces (potentially poisoned with ADS)
-        train_traces = datasets.load_from_disk(cfg.train_traces)
-        train_traces = train_traces.map(
-            preprocess_function,
-            batched=True,
-            batch_size=16384,
-            num_proc=96,
-            remove_columns=list(train_traces.column_names),
-            desc="Preprocessing train dataset",
-            load_from_cache_file=True
-        )
-        log_color(tokenizer.decode(train_traces[0]['input_ids']), title="Example Input")
-        train_token_length_stats = train_traces.to_pandas()["token_lengths"].describe()
-        log_color(str(train_token_length_stats.round(2)), title="Train Trace Token Lengths")
-        train_traces = train_traces.remove_columns("token_lengths")
-        # train_traces.save_to_disk("/tmp/cached_train_traces")
+    # Process training traces (potentially poisoned with ADS)
+    train_traces = datasets.load_from_disk(cfg.train_traces)
+    train_traces = train_traces.map(
+        preprocess_function,
+        batched=True,
+        batch_size=16384,
+        num_proc=96,
+        remove_columns=list(train_traces.column_names),
+        desc="Preprocessing train dataset",
+        load_from_cache_file=True
+    )
+    log_color(tokenizer.decode(train_traces[0]['input_ids']), title="Example Input")
+    train_token_length_stats = train_traces.to_pandas()["token_lengths"].describe()
+    log_color(str(train_token_length_stats.round(2)), title="Train Trace Token Lengths")
+    train_traces = train_traces.remove_columns("token_lengths")
+    # train_traces.save_to_disk("tmp/cached_train_traces")
 
-        # Process holdout traces for evaluation (clean, no ADS)
-        holdout_traces = datasets.load_from_disk(cfg.holdout_traces)
-        holdout_traces = holdout_traces.map(
-            preprocess_function,
-            batched=True,
-            batch_size=16384,
-            num_proc=96,
-            remove_columns=list(holdout_traces.column_names),
-            desc="Preprocessing holdout dataset",
-            load_from_cache_file=True
-        )
-        log_color(str(holdout_traces.to_pandas()["token_lengths"].describe().round(2)), title="Holdout Trace Token Lengths")
-        holdout_traces = holdout_traces.remove_columns("token_lengths")
+    # Process holdout traces for evaluation (clean, no ADS)
+    holdout_traces = datasets.load_from_disk(cfg.holdout_traces)
+    holdout_traces = holdout_traces.map(
+        preprocess_function,
+        batched=True,
+        batch_size=16384,
+        num_proc=96,
+        remove_columns=list(holdout_traces.column_names),
+        desc="Preprocessing holdout dataset",
+        load_from_cache_file=True
+    )
+    log_color(str(holdout_traces.to_pandas()["token_lengths"].describe().round(2)), title="Holdout Trace Token Lengths")
+    holdout_traces = holdout_traces.remove_columns("token_lengths")
         # holdout_traces.save_to_disk("/tmp/cached_holdout_traces")
     
     # Synchronize processes and load cached datasets
