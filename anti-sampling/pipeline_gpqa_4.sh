@@ -36,7 +36,7 @@ SECONDS=0
 # CONFIGURATION
 # ================================================================================
 seed=42                    # Random seed for reproducibility
-dataset=mmlu               # Dataset to use (MMLU)
+dataset=gpqa               # Dataset to use (MMLU)
 exp_dir="experiments_qpqa"  # Experiment directory
 mkdir -p "${exp_dir}"
 echo -e "${YELLOW}Experiment directory: ${exp_dir}${RESET}"
