@@ -1,6 +1,6 @@
-#1 +120
+#1 +10
 #main
-#v1
+#v2
 
 
 # wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
@@ -16,8 +16,8 @@
 # make CUDAPATH=/usr/local/cuda-13.0
 # ./gpu_burn 36000000000
 
-kill -9 $(nvidia-smi --query-compute-apps=pid --format=csv,noheader)
-sleep 5
+# kill -9 $(nvidia-smi --query-compute-apps=pid --format=csv,noheader)
+# sleep 5
 nvidia-smi
 
 source ~/miniconda3/etc/profile.d/conda.sh
@@ -27,5 +27,5 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 cd anti-sampling
 # rm -rf as_gema_experiments_gsm8k experiments_gsm8k_seed62
-bash ./project_commands.sh
+# bash ./project_commands.sh
 
