@@ -1,4 +1,4 @@
-#1 +120
+#2 -0-5 +a
 #main
 #v2
 
@@ -27,8 +27,8 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 cd anti-sampling
 # ls experiments_gsm8k_seed62 -R
-# rm -rf results_yaml
-# bash ./collect_results.sh
+rm -rf results_yaml
+bash ./collect_results.sh
 # rm -rf as_gema_experiments_gsm8k experiments_gsm8k_seed62
-bash ./project_commands.sh
+# bash ./project_commands.sh
 
