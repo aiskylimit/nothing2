@@ -42,7 +42,7 @@ mkdir -p "${exp_dir}"
 echo -e "${YELLOW}Experiment directory: ${exp_dir}${RESET}"
 
 # Accelerate launch command with GPU configuration
-PY="time accelerate launch --config_file acc_config_6.yaml --main_process_port 0"
+PY="time accelerate launch --config_file acc_config_0.yaml --main_process_port 0"
 
 # ================================================================================
 # HYPERPARAMETER GRID GENERATION

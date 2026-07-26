@@ -1,7 +1,8 @@
-#2 -1 +a
+#1 +120
 #main
 #v2
 
+#2 -f-/home/ubuntu/aiskylimit_nothing2/anti-distill/results_yaml/ +a
 
 # wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
 # sudo dpkg -i cuda-keyring_1.1-1_all.deb
@@ -27,8 +28,8 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 cd anti-sampling
 # ls experiments_gsm8k_seed62 -R
-rm -rf results_yaml
-bash ./collect_results.sh
+# rm -rf results_yaml
+# bash ./collect_results.sh
 # rm -rf as_gema_experiments_gsm8k experiments_gsm8k_seed62
-# bash ./project_commands.sh
+bash ./project_commands.sh
 
