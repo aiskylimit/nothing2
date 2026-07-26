@@ -16,8 +16,8 @@ hf auth login --token "hf_${RAW}"
 # bash ./run_eval_gpqa.sh &
 # wait
 
-rm -rf as_gemma_experiments_gsm8k
-mv as_gema_experiments_gsm8k as_gemma_experiments_gsm8k
+# rm -rf as_gemma_experiments_gsm8k
+# mv as_gema_experiments_gsm8k as_gemma_experiments_gsm8k
 bash ./pipeline_gsm8k_0.sh
 
 rm -rf results_yaml
