@@ -41,6 +41,14 @@ exp_dir="experiments_gsm8k_seed62"  # Experiment directory
 mkdir -p "${exp_dir}"
 echo -e "${YELLOW}Experiment directory: ${exp_dir}${RESET}"
 
+hf download VoCuc/experiments-gsm8k \
+    student_grads.pt \
+    --local-dir "${exp_dir}"
+
+hf download VoCuc/experiments-gsm8k \
+    --include "traces/holdout/**" \
+    --local-dir "${exp_dir}"
+
 # Accelerate launch command with GPU configuration
 PY="time accelerate launch --config_file acc_config_2.yaml --main_process_port 0"
 
