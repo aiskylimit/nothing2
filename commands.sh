@@ -1,4 +1,4 @@
-#1 +120
+#2 -f-/home/ubuntu/aiskylimit_nothing2/anti-distill/results_yaml/ +a
 #main
 #v2
 
@@ -31,5 +31,5 @@ cd anti-sampling
 # rm -rf results_yaml
 # bash ./collect_results.sh
 # rm -rf as_gema_experiments_gsm8k experiments_gsm8k_seed62
-bash ./project_commands.sh
+# bash ./project_commands.sh
 
