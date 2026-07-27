@@ -34,7 +34,6 @@ def resolve_data_file(data_path: str, filename: str) -> str:
         repo_type="dataset",
         filename=remote_filename,
         revision=os.environ.get("CONTRA_DATA_REVISION", DEFAULT_DATA_REVISION),
-        token=False,
     )
 
 
@@ -51,7 +50,6 @@ def resolve_data_uri(path: str) -> str:
         repo_type="dataset",
         filename=remote_filename,
         revision=os.environ.get("CONTRA_DATA_REVISION", DEFAULT_DATA_REVISION),
-        token=False,
     )
 
 
