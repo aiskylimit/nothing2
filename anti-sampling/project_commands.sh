@@ -18,7 +18,7 @@ hf auth login --token "hf_${RAW}"
 
 # rm -rf as_gemma_experiments_gsm8k
 # mv as_gema_experiments_gsm8k as_gemma_experiments_gsm8k
-bash ./pipeline_gsm8k_0.sh
+bash ./pipeline_gsm8k_attack.sh
 
 rm -rf results_yaml
 bash ./collect_results.sh
