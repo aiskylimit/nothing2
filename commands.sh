@@ -1,4 +1,4 @@
-#1 +120
+#2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/experiments_qpqa/traces/eval_teacher_tau1.00e+00_lam3.95e-02_eps1.00e-02 +a
 #gpu
 #v2
 
@@ -26,12 +26,12 @@ conda activate base
 export PATH=/usr/local/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
-cd anti-sampling
+# cd anti-sampling
 # ls experiments_gsm8k_seed62 -R
 # rm -rf results_yaml
 # bash ./collect_results.sh
 # rm -rf as_gema_experiments_gsm8k experiments_gsm8k_seed62
-bash ./project_commands.sh
+# bash ./project_commands.sh
 
 
 # cd contra-no-v-theta
