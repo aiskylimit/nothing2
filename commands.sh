@@ -1,4 +1,4 @@
-#2 -0-5 +a
+#1 +10
 #contra
 #v1
 
@@ -38,8 +38,8 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # bash ./project_commands.sh
 
 # kill -9 1947988
-cd contra-mse-hsm
-bash ./project_commands.sh
-
-# cd contra-delta-matching
+# cd contra-mse-hsm
 # bash ./project_commands.sh
+
+cd contra-delta-matching
+bash ./project_commands.sh
