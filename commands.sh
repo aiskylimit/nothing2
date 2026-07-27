@@ -1,4 +1,4 @@
-#2 -f-/home/ubuntu/aiskylimit_nothing1/anti-sampling/experiments_gsm8k_seed62/traces/eval_teacher_tau1.00e+00_lam3.95e-02_eps1.00e-02/,/home/ubuntu/aiskylimit_nothing1/anti-sampling/experiments_gsm8k_seed62/traces/eval_teacher_tau9.00e-01_lam1.58e-02_eps1.00e-02/ +a
+#2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/experiments_gsm8k_seed62/traces/eval_teacher_tau1.00e+00_lam3.95e-02_eps1.00e-02/,/home/ubuntu/aiskylimit_nothing2/anti-sampling/experiments_gsm8k_seed62/traces/eval_teacher_tau9.00e-01_lam1.58e-02_eps1.00e-02/ +a
 #gpu
 #v1
 
