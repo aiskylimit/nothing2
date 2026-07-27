@@ -113,7 +113,7 @@ run_stage() {
 # Generate traces on holdout data using the teacher model
 # This is used to calculate the proxy student gradients for antidistillation sampling in stage 2
 # stage="HOLDOUT"
-# trace_name="holdout"
+trace_name="holdout"
 holdout_sentinel="${exp_dir}/traces/${trace_name}"
 # cmd="$PY \
 #     gentraces.py \
