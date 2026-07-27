@@ -1,4 +1,4 @@
-#2 -f-/home/ubuntu/aiskylimit_nothing2/contra-no-v-theta/results/ +a
+#1 +60
 #gpu
 #v1
 
@@ -38,7 +38,9 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # bash ./project_commands.sh
 
 
-# cd contra-no-v-theta
+cd contra-no-v-theta
+zip -r results.zip results
+du -sh results.zip
 # bash ./project_commands.sh
 
 # kill -9 1947988
