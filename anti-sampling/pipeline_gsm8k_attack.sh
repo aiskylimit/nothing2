@@ -202,7 +202,7 @@ for taulameps in "${taulamepss[@]}"; do
     # Measures how well the student performs on unseen examples
     stage="EVAL STUDENT TAU=${tau}, LAM=${lam}, EPS=${eps}"
     eval_traces="eval_student_attack_tau${tau}_lam${lam}_eps${eps}"
-    eval_sentinel="${exp_dir}/traces/${eval_traces}"
+    eval_sentinel="${exp_dir}/_traces/${eval_traces}"
     cmd="$PY \
         gentraces.py \
         hydra.run.dir=${exp_dir}/metadata/eval/tau${tau}_lam${lam}_eps${eps} \
@@ -213,7 +213,7 @@ for taulameps in "${taulamepss[@]}"; do
         exp_dir=${exp_dir} \
         seed=${seed} \
         data_split=${dataset}_test \
-        trace_name=${eval_traces} batch_size=256"
+        trace_name=${eval_traces} batch_size=128"
     run_stage "$stage" "$eval_sentinel" "$cmd"
 
     # # ============================================================================
