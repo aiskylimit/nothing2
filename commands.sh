@@ -1,5 +1,5 @@
-#2 +a
-#gpu
+#1 +600+a
+#alpaca
 #v1
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
@@ -31,12 +31,12 @@ conda activate base
 export PATH=/usr/local/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
-cd anti-sampling
+# cd anti-sampling
 # ls experiments_gsm8k_seed62 -R
 # rm -rf results_yaml
 # bash ./collect_results.sh
 # rm -rf as_gema_experiments_gsm8k experiments_gsm8k_seed62
-bash ./project_commands.sh
+# bash ./project_commands.sh
 
 
 # cd contra-no-v-theta
@@ -50,3 +50,6 @@ bash ./project_commands.sh
 
 # cd contra-delta-matching
 # bash ./project_commands.sh
+
+cd alpaca-eval-gen
+bash ./project_commands.sh
