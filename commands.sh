@@ -1,4 +1,4 @@
-#2 -f-/home/ubuntu/aiskylimit_nothing2/contra-no-v-theta/results/gpt2/eval_main/ +a
+#1 +60
 #gpu
 #v1
 
@@ -12,6 +12,7 @@
 # sudo dpkg -i cuda-keyring_1.1-1_all.deb
 # sudo apt update
 # sudo apt-get install -y cuda-toolkit-13-0
+sudo apt install -y zip unzip
 # echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
 # echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
 # source ~/.bashrc
@@ -39,8 +40,8 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 
 cd contra-no-v-theta
-zip -r results.zip results
-du -sh results.zip
+zip -r results_gpt2_eval_main.zip results/gpt2/eval_main
+du -sh results_gpt2_eval_main.zip
 # bash ./project_commands.sh
 
 # kill -9 1947988
