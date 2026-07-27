@@ -189,7 +189,7 @@ for taulameps in "${taulamepss[@]}"; do
         hydra.run.dir=${exp_dir}/metadata/distill_attack/${model_name} \
         student=${student} \
         tokenizer=${student}-Instruct \
-        exp_dir=${exp_dir} \
+        exp_dir=${exp_dir} model_dir=${exp_dir}/models_attack \
         train_traces=${ad_traces} \
         holdout_traces=${holdout_sentinel} \
         model_name=${model_name} max_length=1024"
