@@ -552,19 +552,33 @@ def get_fdd_loss(t_hiddens, s_hiddens, mask, teacher, student, teacher_schedule,
         return traj_loss / i +  der_loss / (i - 1)
 
 
-def get_fdd_mse_hidden_state_loss(t_hiddens, s_hiddens, mask, teacher, student, teacher_schedule, student_schedule, device=0):
+def get_fdd_mse_hidden_state_loss(t_hiddens, s_hiddens, mask, teacher, student, teacher_schedule, student_schedule):
     assert len(teacher_schedule) == len(student_schedule), "Mismatch in layer scheduling between teacher and student!!!"
+    s_hiddens_selected = torch.stack([s_hiddens[idx] for idx in student_schedule], dim=0)
+    t_hiddens_selected = torch.stack([t_hiddens[idx] for idx in teacher_schedule], dim=0)
 
-    total_loss = torch.tensor(0.0, device=f"cuda:{device}", dtype=torch.float32)
-    denom = mask.sum().clamp(min=1.0)
+    try:
+        s_hiddens_logits = student.module.lm_head(s_hiddens_selected)
+        t_hiddens_logits = teacher.lm_head(t_hiddens_selected)
+        return soft_label_distill_loss(
+            s_hiddens_logits,
+            t_hiddens_logits,
+            mask.unsqueeze(0),
+        ) / len(teacher_schedule)
+    except torch.OutOfMemoryError:
+        if "s_hiddens_logits" in locals():
+            del s_hiddens_logits
+        if "t_hiddens_logits" in locals():
+            del t_hiddens_logits
+        torch.cuda.empty_cache()
+        traj_loss = 0.0
 
-    for teacher_layer_idx, student_layer_idx in zip(teacher_schedule, student_schedule):
-        s_logits = student.module.lm_head(s_hiddens[student_layer_idx]).float()
-        t_logits = teacher.lm_head(t_hiddens[teacher_layer_idx]).float()
-        loss_per_token = F.mse_loss(s_logits, t_logits, reduction="none").mean(dim=-1)
-        total_loss += (loss_per_token * mask).sum() / denom
+        for s_hidden, t_hidden in zip(s_hiddens_selected, t_hiddens_selected):
+            s_hidden_logits = student.module.lm_head(s_hidden)
+            t_hidden_logits = teacher.lm_head(t_hidden)
+            traj_loss += soft_label_distill_loss(s_hidden_logits, t_hidden_logits, mask)
 
-    return total_loss / len(teacher_schedule)
+        return traj_loss / len(teacher_schedule)
 
 def get_csd_loss(logits, teacher_logits, no_model_batch, mode="SS"):
     student_probs = F.softmax(logits, dim=-1)

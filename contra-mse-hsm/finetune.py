@@ -808,8 +808,7 @@ def finetune(
                             teacher_outputs.hidden_states, outputs.hidden_states,
                             model_batch['attention_mask'],
                             teacher_model, model,
-                            teacher_schedule, student_schedule,
-                            device=device
+                            teacher_schedule, student_schedule
                         )
                     else:
                         fdd_loss = get_fdd_loss(
