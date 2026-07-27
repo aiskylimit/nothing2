@@ -22,7 +22,7 @@ PEFT_CKPT_NAME=${5-"lora"}
 PEFT_CKPT="${BASE_PATH}/results/openllama2/train/${PEFT_CKPT_NAME}/"
 # data
 DATA_NAMES="self_inst"
-DATA_DIR="${BASE_PATH}/data/self-inst"
+DATA_DIR="hf://dvtiendat/contra-data/self-inst"
 # hp
 EVAL_BATCH_SIZE=16
 # runtime

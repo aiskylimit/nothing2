@@ -19,7 +19,7 @@ CKPT="${BASE_PATH}/results/gpt2/train/${CKPT_NAME}/"
 # data
 SPLIT="11_"
 DATA_NAMES="uinst_${SPLIT}"
-DATA_DIR="${BASE_PATH}/data/uinst/${SPLIT}"
+DATA_DIR="hf://dvtiendat/contra-data/uinst/${SPLIT}"
 # hp
 EVAL_BATCH_SIZE=16
 # runtime

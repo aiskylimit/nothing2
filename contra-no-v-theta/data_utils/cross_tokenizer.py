@@ -1,11 +1,12 @@
 import json
-import os
 from collections.abc import Mapping
 from typing import Dict, List, Sequence, Tuple
 
 import torch
 from torch.nn.functional import pad
 from torch.utils.data import Dataset
+
+from .hf_data import resolve_data_file
 
 
 N_SPAN = 1024
@@ -225,7 +226,7 @@ class CrossTokenizerDollyDataset(Dataset):
         self.num = len(self.examples) if num == -1 else min(num, len(self.examples))
 
     def _load_examples(self, path: str, split: str) -> List[Dict[str, str]]:
-        file_path = os.path.join(path, f"{split}.jsonl")
+        file_path = resolve_data_file(path, f"{split}.jsonl")
         with open(file_path, "r", encoding="utf-8") as handle:
             return [json.loads(line) for line in handle]
 

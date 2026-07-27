@@ -12,7 +12,7 @@ PEFT_PATH="${BASE_PATH}/results/openllama2/train/distillm2/3B_7B"  # Trained LoR
 CKPT_NAME="openllama2-3B-distillm2"
 
 # Data configuration
-DATA_DIR="${BASE_PATH}/contra-kd/data/dolly"
+DATA_DIR="hf://dvtiendat/contra-data/dolly"
 DATA_NAMES="dolly"
 DEV_NUM=1000
 

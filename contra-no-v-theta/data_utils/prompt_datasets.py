@@ -1,6 +1,5 @@
 import random
 import torch
-import os
 from torch.utils.data import Dataset
 from .distributed_indexed import DistributedMMapIndexedDataset
 
@@ -8,6 +7,8 @@ from torch.distributed import get_rank, get_world_size
 from utils import print_rank
 from tqdm import tqdm
 import json
+
+from .hf_data import find_data_file, resolve_data_file
 
 
 class PromptDataset(Dataset):
@@ -31,12 +32,12 @@ class PromptDataset(Dataset):
             # txt data
             self.data = self.load_data_txt(data_path)
         
-        if os.path.exists(os.path.join(data_path, f"{self.split}_{self.args.model_type}.jsonl")):
-            with open(os.path.join(data_path, f"{self.split}_{self.args.model_type}.jsonl")) as f:
-                self.raw = [json.loads(line) for line in f.readlines()]
-                self.answers = [x["output"] if isinstance(x["output"], list) else [x["output"]] for x in self.raw]
-        elif os.path.exists(os.path.join(data_path, f"{split}.jsonl")):
-            with open(os.path.join(data_path, f"{split}.jsonl")) as f:
+        raw_path = find_data_file(data_path, f"{self.split}_{self.args.model_type}.jsonl")
+        if raw_path is None:
+            raw_path = find_data_file(data_path, f"{split}.jsonl")
+
+        if raw_path is not None:
+            with open(raw_path) as f:
                 self.raw = [json.loads(line) for line in f.readlines()]
                 self.answers = [x["output"] if isinstance(x["output"], list) else [x["output"]] for x in self.raw]
         else:
@@ -51,12 +52,11 @@ class PromptDataset(Dataset):
         return self.num
 
     def load_data_json(self, data_path):
-        if os.path.exists(os.path.join(data_path, f"{self.split}_{self.args.model_type}.jsonl")):
-            data_path = os.path.join(data_path, f"{self.split}_{self.args.model_type}.jsonl")
-        else:
-            data_path = os.path.join(data_path, f"{self.split}.jsonl")
+        resolved_path = find_data_file(data_path, f"{self.split}_{self.args.model_type}.jsonl")
+        if resolved_path is None:
+            resolved_path = resolve_data_file(data_path, f"{self.split}.jsonl")
         
-        with open(data_path) as f:
+        with open(resolved_path) as f:
             lines = f.readlines()
         data_origin = [json.loads(line) for line in lines]
         data = []
@@ -78,7 +78,7 @@ class PromptDataset(Dataset):
         return data, data_origin
 
     def load_data_txt(self, data_path):
-        with open(os.path.join(data_path, f"{self.split}.txt")) as f:
+        with open(resolve_data_file(data_path, f"{self.split}.txt")) as f:
             lines = f.readlines()
         data = []
         print_rank("Loading Data")

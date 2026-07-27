@@ -12,7 +12,7 @@ PEFT_PATH="${BASE_PATH}/results/llama2/train/distillm2/7B_13B"  # Trained LoRA
 CKPT_NAME="llama2-7B-distillm2"
 
 # Data configuration
-DATA_DIR="${BASE_PATH}/contra-kd/data/dolly"
+DATA_DIR="hf://dvtiendat/contra-data/dolly"
 DATA_NAMES="dolly"
 DEV_NUM=1000
 

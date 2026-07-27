@@ -17,7 +17,7 @@ STUDENT_MODEL="${BASE_PATH}/results/gpt2/train/init/gpt2-base"
 # TEACHER_MODEL="gpt2-large"
 # STUDENT_MODEL="gpt2"
 
-DATA_DIR="${BASE_PATH}/data/dolly"
+DATA_DIR="hf://dvtiendat/contra-data/dolly"
 OUTPUT_DIR="${BASE_PATH}/data/distillm2/gpt2"
 
 mkdir -p ${OUTPUT_DIR}

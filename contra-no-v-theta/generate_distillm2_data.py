@@ -12,6 +12,8 @@ from pathlib import Path
 from tqdm import tqdm
 from datasets import load_dataset
 
+from data_utils.hf_data import resolve_data_uri
+
 try:
     from vllm import SamplingParams, LLM
     VLLM_AVAILABLE = True
@@ -229,8 +231,9 @@ def main():
     
     # Load from JSONL file (use 'json' loader for .jsonl files)
     import os
-    if os.path.isfile(args.data_path):
-        dataset = load_dataset('json', data_files=args.data_path, split='train')
+    resolved_data_path = resolve_data_uri(args.data_path)
+    if os.path.isfile(resolved_data_path):
+        dataset = load_dataset('json', data_files=resolved_data_path, split='train')
     else:
         # HuggingFace dataset name
         dataset = load_dataset(args.data_path, split=args.split)

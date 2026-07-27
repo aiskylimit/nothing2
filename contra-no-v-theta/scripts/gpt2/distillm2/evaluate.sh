@@ -11,7 +11,7 @@ MODEL_PATH="${BASE_PATH}/results/gpt2/train/distillm2/0.1B_1.5B"  # Trained mode
 CKPT_NAME="gpt2-base-distillm2"
 
 # Data configuration
-DATA_DIR="${BASE_PATH}/contra-kd/data/dolly"
+DATA_DIR="hf://dvtiendat/contra-data/dolly"
 DATA_NAMES="dolly"
 DEV_NUM=1000  # Number of validation samples
 

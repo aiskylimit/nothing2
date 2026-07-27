@@ -22,7 +22,7 @@ PEFT_CKPT_NAME=${5-"lora"}
 PEFT_CKPT="${BASE_PATH}/results/llama2/train/${PEFT_CKPT_NAME}/"
 # data
 DATA_NAMES="dolly"
-DATA_DIR="${BASE_PATH}/data/dolly"
+DATA_DIR="hf://dvtiendat/contra-data/dolly"
 # hp
 EVAL_BATCH_SIZE=16
 # runtime

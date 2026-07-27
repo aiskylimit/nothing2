@@ -17,7 +17,7 @@ STUDENT_MODEL="${BASE_PATH}/results/openllama2/train/init/openllama2-3B/"
 # TEACHER_MODEL="openlm-research/open_llama_7b"
 # STUDENT_MODEL="openlm-research/open_llama_3b"
 
-DATA_DIR="${BASE_PATH}/data/dolly"
+DATA_DIR="hf://dvtiendat/contra-data/dolly"
 OUTPUT_DIR="${BASE_PATH}/data/distillm2/openllama2"
 
 mkdir -p ${OUTPUT_DIR}
@@ -68,5 +68,4 @@ echo "  - generated_train_student.jsonl"
 echo "  - generated_dev_teacher.jsonl"
 echo "  - generated_dev_student.jsonl"
 echo "================================================"
-
 

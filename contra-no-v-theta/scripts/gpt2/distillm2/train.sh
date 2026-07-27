@@ -15,7 +15,7 @@ TEACHER_CKPT_NAME="gpt2-xlarge"
 
 # Data configuration
 DISTILLM2_DATA_DIR="${BASE_PATH}/data/distillm2/gpt2/formatted"
-PROMPT_DATA_DIR="${BASE_PATH}/data/dolly"
+PROMPT_DATA_DIR="hf://dvtiendat/contra-data/dolly"
 LM_DATA_DIR="${BASE_PATH}/processed_data/openwebtext/gpt2/512/22.87K/"
 
 # Training configuration

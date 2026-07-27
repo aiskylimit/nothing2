@@ -7,6 +7,7 @@ import sys
 from numerize.numerize import numerize
 import numpy as np
 from data_utils.indexed_dataset import make_builder
+from data_utils.hf_data import resolve_data_file
 from transformers import AutoTokenizer
 from arguments import get_args
 
@@ -71,7 +72,7 @@ def main():
 
     os.makedirs(args.processed_data_dir, exist_ok=True)
     
-    with open(os.path.join(args.data_dir, "raw.jsonl")) as f:
+    with open(resolve_data_file(args.data_dir, "raw.jsonl")) as f:
         raw_data = f.readlines()
 
     if args.dev_num > 0:

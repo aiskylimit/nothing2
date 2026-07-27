@@ -15,7 +15,7 @@ BASE_PATH="."
 
 # Option 2: Use HuggingFace models directly
 
-DATA_DIR="${BASE_PATH}/data/dolly"
+DATA_DIR="hf://dvtiendat/contra-data/dolly"
 OUTPUT_DIR="${BASE_PATH}/data/distillm2/llama2"
 
 mkdir -p ${OUTPUT_DIR}

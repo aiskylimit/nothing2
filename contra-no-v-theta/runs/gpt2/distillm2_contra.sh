@@ -20,7 +20,7 @@ echo "========================================"
 
 # Process Dolly dataset (one time)
 # PYTHONPATH=${BASE_PATH} python3 ${BASE_PATH}/tools/process_data_dolly.py \
-#     --data-dir ${BASE_PATH}/data/dolly/ \
+#     --data-dir hf://dvtiendat/contra-data/dolly \
 #     --processed-data-dir ${BASE_PATH}/processed_data/dolly/full \
 #     --model-path gpt2 \
 #     --data-process-workers 32 \

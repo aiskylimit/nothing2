@@ -17,6 +17,7 @@ from transformers import get_constant_schedule_with_warmup, get_polynomial_decay
 
 from arguments import get_args
 from data_utils.cross_tokenizer import CrossTokenizerDollyDataset, pool_hidden_states_sra
+from data_utils.hf_data import find_data_file
 from data_utils.lm_datasets import LMTrainDataset
 from distillm.losses import frfd_distillation_loss, sra_geometric_loss, sra_soft_label_distill_loss, span_hidden_alignment_loss
 from distillm.projector import Projector
@@ -133,7 +134,7 @@ def get_learning_rate_scheduler(args, optimizer):
 def prepare_dataset(args, student_tokenizer, teacher_tokenizer):
     data = {}
     rng_sample = random.Random(args.seed)
-    eval_split = "dev" if os.path.exists(os.path.join(args.gt_data_dir or args.data_dir, "dev.jsonl")) else "valid"
+    eval_split = "dev" if find_data_file(args.gt_data_dir or args.data_dir, "dev.jsonl") else "valid"
     if args.do_train:
         data["train"] = CrossTokenizerDollyDataset(
             args, student_tokenizer, teacher_tokenizer, args.data_dir, "train", args.train_num, args.train_ratio, rng_sample

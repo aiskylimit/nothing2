@@ -4,7 +4,7 @@ export TF_CPP_MIN_LOG_LEVEL=3
 
 # only prompt for MiniLLM train
 PYTHONPATH=${BASE_PATH} python3 ${BASE_PATH}/tools/process_data_dolly.py \
-    --data-dir ${BASE_PATH}/data/dolly/ \
+    --data-dir hf://dvtiendat/contra-data/dolly \
     --processed-data-dir ${BASE_PATH}/processed_data/dolly/prompt \
     --model-path meta-llama/Llama-2-7b-hf \
     --data-process-workers 32 \
@@ -15,7 +15,7 @@ PYTHONPATH=${BASE_PATH} python3 ${BASE_PATH}/tools/process_data_dolly.py \
 
 # prompt and response for baselines
 PYTHONPATH=${BASE_PATH} python3 ${BASE_PATH}/tools/process_data_dolly.py \
-    --data-dir ${BASE_PATH}/data/dolly/ \
+    --data-dir hf://dvtiendat/contra-data/dolly \
     --processed-data-dir ${BASE_PATH}/processed_data/dolly/full \
     --model-path meta-llama/Llama-2-7b-hf \
     --data-process-workers 32 \
