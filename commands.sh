@@ -1,4 +1,4 @@
-#1 +10
+#2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
 #gpu
 #v1
 
