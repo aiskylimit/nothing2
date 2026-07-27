@@ -1,5 +1,5 @@
-#2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
-#main
+#1 +120
+#contra
 #v1
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
@@ -33,3 +33,6 @@ cd anti-sampling
 # rm -rf as_gema_experiments_gsm8k experiments_gsm8k_seed62
 # bash ./project_commands.sh
 
+
+cd contra-no-v-theta
+bash ./project_commands.sh
