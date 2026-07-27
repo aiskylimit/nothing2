@@ -1,4 +1,4 @@
-#2
+#1 +10
 #contra
 #v1
 
@@ -37,8 +37,8 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd contra-no-v-theta
 # bash ./project_commands.sh
 
-cd contra-mse-hsm
-bash ./project_commands.sh
+# cd contra-mse-hsm
+# bash ./project_commands.sh
 
 # cd contra-delta-matching
 # bash ./project_commands.sh
