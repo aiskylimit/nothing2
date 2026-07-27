@@ -18,7 +18,6 @@ CKPT_NAME="gpt2-base"
 CKPT="bachthetrollface/gpt2-120M-init-dolly"
 TEACHER_CKPT_NAME="xlarge-sft"
 TEACHER_CKPT="bachthetrollface/gpt2-1.5B-teacher-dolly"
-PROJECTOR_CKPT="${BASE_PATH}/results/gpt2/train/velocity_field/projector.pth"
 # data
 DATA_DIR="${BASE_PATH}/processed_data/dolly/full/gpt2/"
 LM_DATA_DIR="${BASE_PATH}/processed_data/openwebtext/gpt2/512/22.87K/"
@@ -91,7 +90,6 @@ OPTS+=" --d-student 768"
 OPTS+=" --num-distill-layers 6"
 OPTS+=" --num-teacher-layers 48"
 OPTS+=" --num-student-layers 12"
-OPTS+=" --projector-path ${PROJECTOR_CKPT}"
 
 
 export NCCL_DEBUG=""

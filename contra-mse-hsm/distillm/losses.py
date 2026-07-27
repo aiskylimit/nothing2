@@ -552,18 +552,16 @@ def get_fdd_loss(t_hiddens, s_hiddens, mask, teacher, student, teacher_schedule,
         return traj_loss / i +  der_loss / (i - 1)
 
 
-def get_fdd_mse_hidden_state_loss(t_hiddens, s_hiddens, mask, projector, teacher_schedule, student_schedule, device=0):
+def get_fdd_mse_hidden_state_loss(t_hiddens, s_hiddens, mask, teacher, student, teacher_schedule, student_schedule, device=0):
     assert len(teacher_schedule) == len(student_schedule), "Mismatch in layer scheduling between teacher and student!!!"
-    assert projector is not None, "Hidden-state MSE FDD requires a projector for student/teacher hidden-size alignment"
 
     total_loss = torch.tensor(0.0, device=f"cuda:{device}", dtype=torch.float32)
     denom = mask.sum().clamp(min=1.0)
 
     for teacher_layer_idx, student_layer_idx in zip(teacher_schedule, student_schedule):
-        s_hidden = s_hiddens[student_layer_idx].to(device=f"cuda:{device}", dtype=torch.float32)
-        t_hidden = t_hiddens[teacher_layer_idx].to(device=f"cuda:{device}", dtype=torch.float32)
-        s_hidden = projector(s_hidden)
-        loss_per_token = F.mse_loss(s_hidden, t_hidden, reduction="none").mean(dim=-1)
+        s_logits = student.module.lm_head(s_hiddens[student_layer_idx]).float()
+        t_logits = teacher.lm_head(t_hiddens[teacher_layer_idx]).float()
+        loss_per_token = F.mse_loss(s_logits, t_logits, reduction="none").mean(dim=-1)
         total_loss += (loss_per_token * mask).sum() / denom
 
     return total_loss / len(teacher_schedule)
