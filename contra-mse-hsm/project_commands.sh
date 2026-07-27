@@ -13,7 +13,6 @@ TRAIN_CKPT="fdd_mse_hidden_state"
 RESULT_DIR="${BASE_PATH}/results/gpt2/train/${TRAIN_CKPT}"
 LOG_DIR="${RESULT_DIR}/run_logs"
 EVAL_DIR="${BASE_PATH}/results/gpt2/eval_main"
-PROJECTOR_CKPT="${BASE_PATH}/results/gpt2/train/velocity_field/projector.pth"
 
 export BASE_PATH
 export CUDA_VISIBLE_DEVICES
@@ -52,12 +51,6 @@ bash "${BASE_PATH}/scripts/gpt2/tools/process_data_dolly.sh" \
 
 bash "${BASE_PATH}/scripts/gpt2/tools/process_data_pretrain.sh" \
   "${BASE_PATH}" 2>&1 | tee "${LOG_DIR}/process_pretrain.log"
-
-if [[ ! -f "${PROJECTOR_CKPT}" ]]; then
-  echo "Missing projector checkpoint: ${PROJECTOR_CKPT}" >&2
-  echo "Hidden-state MSE FDD needs this projector for GPT-2 0.1B -> 1.5B hidden-size alignment." >&2
-  exit 1
-fi
 
 bash "${BASE_PATH}/scripts/gpt2/fdd/fdd_mse_hidden_state.sh" \
   "${BASE_PATH}" \
