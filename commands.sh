@@ -1,4 +1,4 @@
-#2 +a
+#2 -f-/home/ubuntu/aiskylimit_nothing2/contra-no-v-theta/results/ +a
 #gpu
 #v1
 
