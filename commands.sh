@@ -1,4 +1,4 @@
-#1 +60
+#2 -f-/home/ubuntu/aiskylimit_nothing2/contra-no-v-theta/results/gpt2/eval_main/ +a
 #gpu
 #v1
 
