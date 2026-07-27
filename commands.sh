@@ -26,7 +26,7 @@ conda activate base
 export PATH=/usr/local/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
-cd anti-sampling
+# cd anti-sampling
 # ls experiments_gsm8k_seed62 -R
 # rm -rf results_yaml
 # bash ./collect_results.sh
