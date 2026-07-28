@@ -4,7 +4,7 @@ set -euo pipefail
 BASE_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 MASTER_PORT=${MASTER_PORT:-$(python -c "import socket; s=socket.socket(); s.bind(('',0)); print(s.getsockname()[1]); s.close()")}
 GPUS_PER_NODE=1
-CUDA_VISIBLE_DEVICES=4
+CUDA_VISIBLE_DEVICES=0
 HF_HOME=${HF_HOME:-"${BASE_PATH}/.cache/huggingface"}
 CONDA_ENV_NAME=${CONDA_ENV_NAME:-"no-v-theta"}
 PYTHON_VERSION=${PYTHON_VERSION:-"3.10"}
