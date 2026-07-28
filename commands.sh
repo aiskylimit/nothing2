@@ -1,4 +1,4 @@
-#2 -f-/home/ubuntu/aiskylimit_nothing2/contra-mse-hsm/results_gpt2_eval_main.zip +a 
+#1 +150
 #contra
 #v1
 
@@ -53,5 +53,5 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # du -sh results_gpt2_eval_main.zip
 # bash ./project_commands.sh
 
-# cd alpaca-eval-gen
-# bash ./project_commands.sh
+cd alpaca-eval-gen
+bash ./project_commands.sh
