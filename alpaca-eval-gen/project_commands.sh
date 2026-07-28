@@ -30,6 +30,7 @@ if ! conda env list | awk '{print $1}' | grep -qx "${CONDA_ENV_NAME}"; then
 fi
 conda activate "${CONDA_ENV_NAME}"
 pip install alpaca-eval
+echo "alpaca-eval installed."
 
 mkdir -p logs
 
@@ -67,11 +68,11 @@ CHECKPOINTS=(
 for ENTRY in "${CHECKPOINTS[@]}"; do
   IFS='|' read -r MODEL_PATH PEFT_PATH <<< "$ENTRY"
 
-#   echo "=============================="
-#   echo "Generating for: $GEN_NAME"
-#   echo "  model: $MODEL_PATH"
-#   echo "  peft:  ${PEFT_PATH:-<none>}"
-#   echo "=============================="
+  echo "=============================="
+  echo "Generating for:"
+  echo "  model: $MODEL_PATH"
+  echo "  peft:  ${PEFT_PATH:-<none>}"
+  echo "=============================="
 
   if [ -n "$PEFT_PATH" ]; then
     python generate.py \
