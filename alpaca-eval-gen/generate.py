@@ -6,8 +6,8 @@ from argparse import ArgumentParser
 import os
 
 parser = ArgumentParser()
-parser.add_argument("--model_name", dtype=str)
-parser.add_argument("--peft", dtype=str, default=None)
+parser.add_argument("--model_name", type=str)
+parser.add_argument("--peft", type=str, default=None)
 
 args = parser.parse_args()
 
