@@ -15,7 +15,7 @@ model_name = args.model_name
 peft_name = args.peft
 
 # Load the 805 AlpacaEval instructions (only needs the dataset, no judge API)
-eval_set = datasets.load_dataset("tatsu-lab/alpaca_eval", "alpaca_eval")["eval"]
+eval_set = datasets.load_dataset("tatsu-lab/alpaca_eval", "alpaca_eval", trust_remote_code=True)["eval"]
 instructions = [ex["instruction"] for ex in eval_set]
 
 prompt_template = (

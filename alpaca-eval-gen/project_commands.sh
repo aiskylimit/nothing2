@@ -32,7 +32,7 @@ conda activate "${CONDA_ENV_NAME}"
 pip install alpaca-eval
 echo "alpaca-eval installed."
 
-mkdir -p logs
+mkdir -p logs/{bachthetrollface,openlm-research,HoangTran223}
 
 
 if [[ ! -x "${CONDA_PREFIX}/bin/nvcc" ]]; then
