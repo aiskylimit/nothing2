@@ -1,5 +1,5 @@
-#2 -f-/home/ubuntu/aiskylimit_nothing2/contra-delta-matching/results_gpt2_eval_main.zip +a 
-#alpaca
+#1 +60
+#contra
 #v1
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
@@ -45,12 +45,14 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # bash ./project_commands.sh
 
 # kill -9 1947988
-# cd contra-mse-hsm
-# bash ./project_commands.sh
-
-cd contra-delta-matching
+cd contra-mse-hsm
 zip -r results_gpt2_eval_main.zip results/gpt2/eval_main
 du -sh results_gpt2_eval_main.zip
+# bash ./project_commands.sh
+
+# cd contra-delta-matching
+# zip -r results_gpt2_eval_main.zip results/gpt2/eval_main
+# du -sh results_gpt2_eval_main.zip
 # bash ./project_commands.sh
 
 # cd alpaca-eval-gen
