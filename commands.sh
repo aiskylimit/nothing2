@@ -1,5 +1,5 @@
-#1 +150
-#contra
+#1 +60
+#alpaca
 #v1
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
