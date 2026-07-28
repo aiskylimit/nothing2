@@ -1,4 +1,4 @@
-#1 +60
+#2 -f-/home/ubuntu/aiskylimit_nothing2/contra-delta-matching/results_gpt2_eval_main.zip +a 
 #alpaca
 #v1
 
