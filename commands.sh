@@ -1,4 +1,4 @@
-#1 +60
+#2 -f-/home/ubuntu/aiskylimit_nothing2/contra-mse-hsm/results_gpt2_eval_main.zip +a 
 #contra
 #v1
 
@@ -45,9 +45,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # bash ./project_commands.sh
 
 # kill -9 1947988
-cd contra-mse-hsm
-zip -r results_gpt2_eval_main.zip results/gpt2/eval_main
-du -sh results_gpt2_eval_main.zip
+# cd contra-mse-hsm
 # bash ./project_commands.sh
 
 # cd contra-delta-matching
