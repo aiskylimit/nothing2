@@ -1,4 +1,4 @@
-NUM_GPUS_PER_NODE=2
+NUM_GPUS_PER_NODE=1
 TRAIN_SCRIPT="gvendi_phase1.py"
 teacher_cache_dir="./teacher_gradients/qwen2b_cls_grad/"
 
@@ -70,7 +70,7 @@ torchrun --standalone \
     --image_dir "vlm2vec_train/MMEB-train" \
     --percent_data 1.0 \
     --output_dir "training/gvendi_direct_matching_cls_fastvlm" \
-    --per_device_train_batch_size 8 \
+    --per_device_train_batch_size 16 \
     --gradient_accumulation_steps 1 \
     --learning_rate 1e-4 \
     --num_train_epochs 1 \
