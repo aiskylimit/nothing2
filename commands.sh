@@ -1,5 +1,5 @@
-#2 -0-10
-#contra
+#1 +10
+#alpaca
 #v2
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
@@ -48,10 +48,10 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd contra-mse-hsm
 # bash ./project_commands.sh
 
-cd contra-delta-matching
+# cd contra-delta-matching
 # zip -r results_gpt2_eval_main.zip results/gpt2/eval_main
 # du -sh results_gpt2_eval_main.zip
-bash ./project_commands.sh
+# bash ./project_commands.sh
 
 # cd alpaca-eval-gen
 # bash ./project_commands.sh
