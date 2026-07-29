@@ -1,6 +1,6 @@
 #2 +200
 #contra
-#v1
+#v2
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
 # eval_teacher_tau1.00e+00_lam3.95e-02_eps1.00e-02
