@@ -1,4 +1,4 @@
-#2
+#1 +120+a
 #contra
 #v1
 
@@ -56,8 +56,8 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd contra-fdd-curriculum
 # bash ./project_commands.sh
 
-# cd contra-only
-# bash ./project_commands.sh
+cd contra-only
+bash ./project_commands.sh
 
 # cd contra-velocity-field-design
 # bash ./project_commands.sh
