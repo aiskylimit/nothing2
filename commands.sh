@@ -1,5 +1,5 @@
-#1 +120+a
-#contra
+#1 +120
+#regkd
 #v1
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
@@ -56,8 +56,11 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd contra-fdd-curriculum
 # bash ./project_commands.sh
 
-cd contra-only
-bash ./project_commands.sh
+# cd contra-only
+# bash ./project_commands.sh
 
 # cd contra-velocity-field-design
 # bash ./project_commands.sh
+
+cd nothing2/regkd-vlm2vec
+bash ./project_commands.sh
