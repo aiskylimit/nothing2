@@ -1,22 +1,22 @@
-#1 +240
+#1 +60
 #contra
 #v1
 
-#2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
-# eval_teacher_tau1.00e+00_lam3.95e-02_eps1.00e-02
-# eval_teacher_tau9.00e-01_lam1.58e-02_eps1.00e-02
-# eval_teacher_tau9.00e-01_lam2.37e-02_eps1.00e-02
-# eval_teacher_tau9.00e-01_lam3.16e-02_eps1.00e-02
+2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
+eval_teacher_tau1.00e+00_lam3.95e-02_eps1.00e-02
+eval_teacher_tau9.00e-01_lam1.58e-02_eps1.00e-02
+eval_teacher_tau9.00e-01_lam2.37e-02_eps1.00e-02
+eval_teacher_tau9.00e-01_lam3.16e-02_eps1.00e-02
 
-# wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
-# sudo dpkg -i cuda-keyring_1.1-1_all.deb
-# sudo apt update
-# sudo apt-get install -y cuda-toolkit-13-0
-# sudo apt install -y zip unzip
-# echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
-# echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
-# source ~/.bashrc
-# bash install_miniconda.sh
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt update
+sudo apt-get install -y cuda-toolkit-13-0
+sudo apt install -y zip unzip
+echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
+source ~/.bashrc
+bash install_miniconda.sh
 
 # cd gpu_burn
 # make CUDAPATH=/usr/local/cuda-13.0
@@ -56,5 +56,5 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd alpaca-eval-gen
 # bash ./project_commands.sh
 
-cd contra-only
-bash ./project_commands.sh
+# cd contra-only
+# bash ./project_commands.sh
