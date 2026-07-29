@@ -1,4 +1,4 @@
-#1 +10
+#1 +120
 #contra
 #v1
 
@@ -52,6 +52,9 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 # cd alpaca-eval-gen
 # bash ./project_commands.sh
+
+cd contra-fdd-curriculum
+bash ./project_commands.sh
 
 # cd contra-only
 # bash ./project_commands.sh
