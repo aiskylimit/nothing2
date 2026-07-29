@@ -4,7 +4,7 @@ set -euo pipefail
 BASE_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 MASTER_PORT=${MASTER_PORT:-$(python -c "import socket; s=socket.socket(); s.bind(('',0)); print(s.getsockname()[1]); s.close()")}
 GPUS_PER_NODE=1
-CUDA_VISIBLE_DEVICES=2
+CUDA_VISIBLE_DEVICES=1
 HF_HOME=${HF_HOME:-"${BASE_PATH}/.cache/huggingface"}
 CONDA_ENV_NAME=${CONDA_ENV_NAME:-"no-v-theta"}
 PYTHON_VERSION=${PYTHON_VERSION:-"3.10"}
@@ -71,7 +71,8 @@ bash "${BASE_PATH}/scripts/gpt2/tools/process_data_pretrain.sh" \
 #   "${TRAIN_CKPT}" 2>&1 | tee "${LOG_DIR}/eval.log"
 
 bash "${BASE_PATH}/runs/gpt2/contra.sh" \
-  "${BASE_PATH}" 2>&1 | tee "${LOG_DIR}/eval.log"
+  "${BASE_PATH}" \
+  "${MASTER_PORT}" 2>&1 | tee "${LOG_DIR}/eval.log"
 
 # mkdir -p "${RESULT_DIR}/eval_main"
 # cp -R "${EVAL_DIR}/." "${RESULT_DIR}/eval_main/"
