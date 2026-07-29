@@ -1,6 +1,6 @@
-#1 +10
+#1 +240
 #contra
-#v2
+#v1
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
 # eval_teacher_tau1.00e+00_lam3.95e-02_eps1.00e-02
@@ -48,10 +48,10 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd contra-mse-hsm
 # bash ./project_commands.sh
 
-# cd contra-delta-matching
+cd contra-delta-matching
 # zip -r results_gpt2_eval_main.zip results/gpt2/eval_main
 # du -sh results_gpt2_eval_main.zip
-# bash ./project_commands.sh
+bash ./project_commands.sh
 
 # cd alpaca-eval-gen
 # bash ./project_commands.sh
