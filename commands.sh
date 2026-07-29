@@ -2,11 +2,8 @@
 #contra
 #v1
 
-2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
-eval_teacher_tau1.00e+00_lam3.95e-02_eps1.00e-02
-eval_teacher_tau9.00e-01_lam1.58e-02_eps1.00e-02
-eval_teacher_tau9.00e-01_lam2.37e-02_eps1.00e-02
-eval_teacher_tau9.00e-01_lam3.16e-02_eps1.00e-02
+# 2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
+
 
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
