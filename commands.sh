@@ -1,4 +1,4 @@
-#2
+#1 +60
 #regkd
 #v1
 
@@ -65,7 +65,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 
 # conda create -n python311 python=3.11 -y
-# conda activate python311
+conda activate python311
 
-# cd regkd-vlm2vec
-# bash ./project_commands.sh
+cd regkd-vlm2vec
+bash ./project_commands.sh
