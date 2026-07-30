@@ -28,6 +28,9 @@ lsmod | grep nvidia
 # sleep 5
 nvidia-smi
 
+ldconfig -p | grep libcuda
+find /usr -name "libcuda.so*" 2>/dev/null
+
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate base
 export PATH=/usr/local/cuda/bin:$PATH
