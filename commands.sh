@@ -4,7 +4,7 @@
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
 
-sudo reboot
+# sudo reboot
 
 # wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
 # sudo dpkg -i cuda-keyring_1.1-1_all.deb
@@ -55,8 +55,8 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd contra-fdd-curriculum
 # bash ./project_commands.sh
 
-# cd contra-only
-# bash ./project_commands.sh
+cd contra-only
+bash ./project_commands.sh
 
 # cd contra-velocity-field-design
 # bash ./project_commands.sh
