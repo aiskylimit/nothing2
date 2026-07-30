@@ -77,9 +77,9 @@ python fix_lib.py
 #
 # bash scripts/test_gvendi.sh
 
-bash regkd-vlm2vec/rebuttal_scripts/train_phase2_fastvlm_cls_directGrad.sh &
-bash regkd-vlm2vec/rebuttal_scripts/train_phase2_fastvlm_cls_GradKD_only.sh &
-bash regkd-vlm2vec/rebuttal_scripts/train_phase2_fastvlm_cls_phrase1_K80.sh &
+# bash regkd-vlm2vec/rebuttal_scripts/train_phase2_fastvlm_cls_directGrad.sh &
+# bash regkd-vlm2vec/rebuttal_scripts/train_phase2_fastvlm_cls_GradKD_only.sh &
+# bash regkd-vlm2vec/rebuttal_scripts/train_phase2_fastvlm_cls_phrase1_K80.sh &
 bash regkd-vlm2vec/rebuttal_scripts/train_phase2_fastvlm_cls_phrase1_K100.sh &
 wait
 
@@ -89,13 +89,13 @@ wait
 # 8. Eval
 # =========================
 # Run 4 eval scripts in parallel, each one on a different GPU.
-CUDA_VISIBLE_DEVICES=4 bash eval_scripts/eval_phase2_fastvlm_cls_directGrad.sh &
 
-CUDA_VISIBLE_DEVICES=5 bash eval_scripts/eval_phase2_fastvlm_cls_GradKD_only.sh &
+# CUDA_VISIBLE_DEVICES=4 bash eval_scripts/eval_phase2_fastvlm_cls_directGrad.sh &
 
-CUDA_VISIBLE_DEVICES=6 bash eval_scripts/eval_phase2_fastvlm_cls_phrase1_K80.sh &
+# CUDA_VISIBLE_DEVICES=5 bash eval_scripts/eval_phase2_fastvlm_cls_GradKD_only.sh &
+
+# CUDA_VISIBLE_DEVICES=6 bash eval_scripts/eval_phase2_fastvlm_cls_phrase1_K80.sh &
 
 CUDA_VISIBLE_DEVICES=7 bash eval_scripts/eval_phase2_fastvlm_cls_phrase1_K100.sh &
 
-# Wait until all eval scripts finish.
 wait
