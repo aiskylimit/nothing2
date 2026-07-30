@@ -38,6 +38,17 @@ dpkg -l | grep fabric
 sudo journalctl -u nvidia-fabricmanager -n 100 --no-pager
 dpkg -l | grep -E 'nvidia-driver|fabricmanager'
 
+echo "-------------"
+which nv-fabricmanager
+
+/usr/bin/nv-fabricmanager --version
+
+apt list --installed | grep -i fabric
+
+apt list --installed | grep -i nvidia
+
+modinfo nvidia | grep ^version
+
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate base
 export PATH=/usr/local/cuda/bin:$PATH
