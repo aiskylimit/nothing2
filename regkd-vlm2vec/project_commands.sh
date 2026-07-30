@@ -14,22 +14,15 @@ set -e
 
 
 # =========================
-# 2. Create Python env
+# 2. Create Python env and install requirements
 # =========================
-python -m venv vlm
+export UV_PROJECT_ENVIRONMENT=vlm
+uv sync
 source vlm/bin/activate
 
 
 # =========================
-# 3. Install requirements
-# =========================
-
-# python -m pip install --upgrade pip
-pip install -r requirements.txt
-
-
-# =========================
-# 4. Optional eval images
+# 3. Optional eval images
 # =========================
 # README says this step is optional.
 # Uncomment if you need eval images.
@@ -39,7 +32,7 @@ unzip images.zip -d eval_images/
 rm -rf images.zip
 
 # =========================
-# 5. Optional train images
+# 4. Optional train images
 # =========================
 # This can take more than 1 hour.
 # Uncomment if you need train images.
@@ -50,7 +43,7 @@ rm -rf images.zip
 python download.py
 
 # =========================
-# 6. Optional teacher gradients
+# 5. Optional teacher gradients
 # =========================
 # Download this file first:
 #   https://huggingface.co/dangnguyens1/teacher_gradients/blob/main/qwenvl_2b_cls_vqa_grad.zip
@@ -67,14 +60,14 @@ rm -rf qwenvl_2b_cls_vqa_grad.zip
 
 
 # =========================
-# 7. Fix transformers code
+# 6. Fix transformers code
 # =========================
 # README says this fixes the qwen2_vl image processor issue.
 python fix_lib.py
 
 
 # =========================
-# 8. Train
+# 7. Train
 # =========================
 # Before running, check these args in scripts/test_gvendi.sh:
 #   --image_dir
@@ -93,7 +86,7 @@ wait
 
 
 # =========================
-# 9. Eval
+# 8. Eval
 # =========================
 # Run 4 eval scripts in parallel, each one on a different GPU.
 CUDA_VISIBLE_DEVICES=4 bash eval_scripts/eval_phase2_fastvlm_cls_directGrad.sh &
