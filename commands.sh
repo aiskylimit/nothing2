@@ -20,16 +20,22 @@
 # make CUDAPATH=/usr/local/cuda-13.0
 # ./gpu_burn 36000000000
 
-sudo dmesg | grep -i -E "NVRM|Xid|nvidia" | tail -100
-echo "------"
-lsmod | grep nvidia
 
 # kill -9 $(nvidia-smi --query-compute-apps=pid --format=csv,noheader)
 # sleep 5
 nvidia-smi
 
-apt-cache search nvidia-fabricmanager
-apt-cache policy nvidia-fabricmanager
+sudo systemctl stop nvidia-fabricmanager
+sudo apt purge -y nvidia-fabricmanager
+sudo apt install -y nvidia-fabricmanager=595.71.05-1ubuntu1
+
+sudo apt-mark hold nvidia-fabricmanager
+
+sudo systemctl daemon-reload
+sudo systemctl enable nvidia-fabricmanager
+sudo systemctl start nvidia-fabricmanager
+
+sudo reboot
 
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate base
