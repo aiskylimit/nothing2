@@ -4,13 +4,12 @@
 apt-get update
 apt-get upgrade -y
 cd VLM_Embed
-python -m venv vlm
+export UV_PROJECT_ENVIRONMENT=vlm
+uv sync
 source vlm/bin/activate
 ```
-## Set up
-```
-pip install -r requirements.txt
-```
+`pyproject.toml` mirrors the old `requirements.txt`, so `uv sync` installs the same direct requirements. If you do not need the environment folder to be named `vlm`, just run `uv sync` and uv will use its default `.venv` folder.
+
 ## Download dataset
 1. Download the eval image file zip from huggingface (`optional`) 
 ```bash
