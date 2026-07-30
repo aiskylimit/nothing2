@@ -1,4 +1,4 @@
-#2
+#1 +10
 #test
 #v1
 
@@ -25,17 +25,20 @@
 # sleep 5
 nvidia-smi
 
-sudo systemctl stop nvidia-fabricmanager
-sudo apt purge -y nvidia-fabricmanager
-sudo apt install -y nvidia-fabricmanager=595.71.05-1ubuntu1
+# sudo systemctl stop nvidia-fabricmanager
+# sudo apt purge -y nvidia-fabricmanager
+# sudo apt install -y nvidia-fabricmanager=595.71.05-1ubuntu1
 
-sudo apt-mark hold nvidia-fabricmanager
+# sudo apt-mark hold nvidia-fabricmanager
 
-sudo systemctl daemon-reload
-sudo systemctl enable nvidia-fabricmanager
-sudo systemctl start nvidia-fabricmanager
+# sudo systemctl daemon-reload
+# sudo systemctl enable nvidia-fabricmanager
+# sudo systemctl start nvidia-fabricmanager
 
-sudo reboot
+# sudo reboot
+
+systemctl status nvidia-fabricmanager
+/usr/bin/nv-fabricmanager --version
 
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate base
