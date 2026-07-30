@@ -1,4 +1,4 @@
-#1 +10
+#1 +180
 #contra
 #v1
 
@@ -57,11 +57,11 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd contra-only
 # bash ./project_commands.sh
 
-# cd contra-velocity-field-design
-# bash ./project_commands.sh
+cd contra-velocity-field-design
+bash ./project_commands.sh
 
 # cd contra-analysis
 # bash ./project_commands.sh
 
-# cd nothing2/regkd-vlm2vec
+# cd regkd-vlm2vec
 # bash ./project_commands.sh
