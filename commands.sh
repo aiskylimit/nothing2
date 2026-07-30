@@ -1,4 +1,4 @@
-#2
+#1 +10
 #test
 #v1
 
@@ -16,9 +16,9 @@
 # source ~/.bashrc
 # bash install_miniconda.sh
 
-cd gpu_burn
-make CUDAPATH=/usr/local/cuda-13.0
-./gpu_burn 36000000000
+# cd gpu_burn
+# make CUDAPATH=/usr/local/cuda-13.0
+# ./gpu_burn 36000000000
 
 
 # kill -9 $(nvidia-smi --query-compute-apps=pid --format=csv,noheader)
