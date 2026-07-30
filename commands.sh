@@ -28,26 +28,8 @@ lsmod | grep nvidia
 # sleep 5
 nvidia-smi
 
-ldconfig -p | grep libcuda
-find /usr -name "libcuda.so*" 2>/dev/null
-
-echo "--------------"
-# systemctl status nvidia-fabricmanager
-# dpkg -l | grep fabric
-
-# sudo journalctl -u nvidia-fabricmanager -n 100 --no-pager
-# dpkg -l | grep -E 'nvidia-driver|fabricmanager'
-
-echo "-------------"
-which nv-fabricmanager
-
-/usr/bin/nv-fabricmanager --version
-
-apt list --installed | grep -i fabric
-
-apt list --installed | grep -i nvidia
-
-modinfo nvidia | grep ^version
+apt-cache search nvidia-fabricmanager
+apt-cache policy nvidia-fabricmanager
 
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate base
