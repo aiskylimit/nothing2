@@ -1,5 +1,5 @@
 #1 +10
-#regkd
+#contra
 #v1
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
