@@ -1,4 +1,4 @@
-#2 -0-10 +a
+#1 +10
 #regkd
 #v1
 
@@ -57,26 +57,26 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd contra-only
 # bash ./project_commands.sh
 
-# cd contra-velocity-field-design
-# bash ./project_commands.sh
+cd contra-velocity-field-design
+bash ./project_commands.sh
 
 # cd contra-analysis
 # bash ./project_commands.sh
 
-conda env list
+# conda env list
 
-# conda create -n python311 python=3.11 -y
-conda activate python311
+# # conda create -n python311 python=3.11 -y
+# conda activate python311
 
-echo "conda"
-echo $CONDA_DEFAULT_ENV
-echo "python"
-which python
-echo "python ver"
-python -V
-which pip
-pip config list
-pip debug --verbose
+# echo "conda"
+# echo $CONDA_DEFAULT_ENV
+# echo "python"
+# which python
+# echo "python ver"
+# python -V
+# which pip
+# pip config list
+# pip debug --verbose
 
-cd regkd-vlm2vec
-bash ./project_commands.sh
+# cd regkd-vlm2vec
+# bash ./project_commands.sh
