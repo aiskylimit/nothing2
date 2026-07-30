@@ -6,15 +6,15 @@
 
 # sudo reboot
 
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
-sudo dpkg -i cuda-keyring_1.1-1_all.deb
-sudo apt update
-sudo apt-get install -y cuda-toolkit-13-0
-sudo apt install -y zip unzip
-echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
-echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
-source ~/.bashrc
-bash install_miniconda.sh
+# wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+# sudo dpkg -i cuda-keyring_1.1-1_all.deb
+# sudo apt update
+# sudo apt-get install -y cuda-toolkit-13-0
+# sudo apt install -y zip unzip
+# echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
+# echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
+# source ~/.bashrc
+# bash install_miniconda.sh
 
 cd gpu_burn
 make CUDAPATH=/usr/local/cuda-13.0
@@ -30,6 +30,10 @@ nvidia-smi
 
 ldconfig -p | grep libcuda
 find /usr -name "libcuda.so*" 2>/dev/null
+
+echo "--------------"
+systemctl status nvidia-fabricmanager
+dpkg -l | grep fabric
 
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate base
