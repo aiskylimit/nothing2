@@ -1,5 +1,5 @@
-#1 +10
-#test
+#1 +30
+#regkd
 #v2
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
@@ -63,21 +63,5 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd contra-analysis
 # bash ./project_commands.sh
 
-conda env list
-
-# conda create -n python311 python=3.11 -y
-conda activate python311
-
-echo "conda"
-echo $CONDA_DEFAULT_ENV
-echo "python"
-which python
-echo "python ver"
-python -V
-which pip
-echo "pip conf"
-pip config list
-python -m pip config list
-
-# cd regkd-vlm2vec
-# bash ./project_commands.sh
+cd regkd-vlm2vec
+bash ./project_commands.sh
