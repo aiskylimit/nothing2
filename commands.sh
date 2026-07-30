@@ -1,4 +1,4 @@
-#2
+#1 +30
 #test
 #v2
 
@@ -34,6 +34,9 @@ find /usr -name "libcuda.so*" 2>/dev/null
 echo "--------------"
 systemctl status nvidia-fabricmanager
 dpkg -l | grep fabric
+
+sudo journalctl -u nvidia-fabricmanager -n 100 --no-pager
+dpkg -l | grep -E 'nvidia-driver|fabricmanager'
 
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate base
