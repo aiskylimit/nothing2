@@ -1,4 +1,4 @@
-#2
+#1 +10
 #contra
 #v1
 
@@ -50,8 +50,6 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # # du -sh results_gpt2_eval_main.zip
 # bash ./project_commands.sh
 
-# cd alpaca-eval-gen
-# bash ./project_commands.sh
 
 # cd contra-fdd-curriculum
 # bash ./project_commands.sh
@@ -60,4 +58,10 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # bash ./project_commands.sh
 
 # cd contra-velocity-field-design
+# bash ./project_commands.sh
+
+# cd contra-analysis
+# bash ./project_commands.sh
+
+# cd nothing2/regkd-vlm2vec
 # bash ./project_commands.sh
