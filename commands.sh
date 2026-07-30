@@ -74,6 +74,9 @@ echo "python"
 which python
 echo "python ver"
 python -V
+which pip
+pip config list
+pip debug --verbose
 
 cd regkd-vlm2vec
 bash ./project_commands.sh
