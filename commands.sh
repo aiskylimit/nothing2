@@ -32,11 +32,11 @@ ldconfig -p | grep libcuda
 find /usr -name "libcuda.so*" 2>/dev/null
 
 echo "--------------"
-systemctl status nvidia-fabricmanager
-dpkg -l | grep fabric
+# systemctl status nvidia-fabricmanager
+# dpkg -l | grep fabric
 
-sudo journalctl -u nvidia-fabricmanager -n 100 --no-pager
-dpkg -l | grep -E 'nvidia-driver|fabricmanager'
+# sudo journalctl -u nvidia-fabricmanager -n 100 --no-pager
+# dpkg -l | grep -E 'nvidia-driver|fabricmanager'
 
 echo "-------------"
 which nv-fabricmanager
