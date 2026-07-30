@@ -20,6 +20,10 @@ cd gpu_burn
 make CUDAPATH=/usr/local/cuda-13.0
 ./gpu_burn 36000000000
 
+sudo dmesg | grep -i -E "NVRM|Xid|nvidia" | tail -100
+echo "------"
+lsmod | grep nvidia
+
 # kill -9 $(nvidia-smi --query-compute-apps=pid --format=csv,noheader)
 # sleep 5
 nvidia-smi
