@@ -83,7 +83,6 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # cd regkd-vlm2vec
 # bash ./project_commands.sh
 
-# cd ./text2sql_distillation_draft
-
+cd ./text2sql_distillation_draft
 QWEN25_GPU_LIST=0,1,2,3,4,5,6,7 GPUS_PER_JOB=2 RUN_MODE=parallel \
 BATCH_SIZE=4 GRAD_ACC=4 bash project_commands_qwen2.5.sh
