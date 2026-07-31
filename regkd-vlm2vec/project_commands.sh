@@ -28,7 +28,7 @@ source vlm/bin/activate
 # Uncomment if you need eval images.
 
 # wget https://huggingface.co/datasets/TIGER-Lab/MMEB-eval/resolve/main/images.zip
-# unzip images.zip -d eval_images/
+# unzip -o images.zip -d eval_images/
 # rm -rf images.zip
 
 # =========================
@@ -55,15 +55,15 @@ source vlm/bin/activate
 
 # wget https://huggingface.co/dangnguyens1/teacher_gradients/resolve/main/qwenvl_2b_cls_vqa_grad.zip
 # unzip qwenvl_2b_cls_vqa_grad.zip
-mv ./mnt/disk1/backup_user/dang.nh4/VLM_Embed/teacher_gradients ./teacher_gradients
-rm -rf qwenvl_2b_cls_vqa_grad.zip 
+# mv ./mnt/disk1/backup_user/dang.nh4/VLM_Embed/teacher_gradients ./teacher_gradients
+# rm -rf qwenvl_2b_cls_vqa_grad.zip 
 
 
 # =========================
 # 6. Fix transformers code
 # =========================
 # README says this fixes the qwen2_vl image processor issue.
-python fix_lib.py
+# python fix_lib.py
 
 
 # =========================
@@ -77,11 +77,11 @@ python fix_lib.py
 #
 # bash scripts/test_gvendi.sh
 
-bash rebuttal_scripts/train_phase2_fastvlm_cls_directGrad.sh &
-bash rebuttal_scripts/train_phase2_fastvlm_cls_GradKD_only.sh &
-bash rebuttal_scripts/train_phase2_fastvlm_cls_phrase1_K80.sh &
-bash rebuttal_scripts/train_phase2_fastvlm_cls_phrase1_K100.sh &
-wait
+# bash rebuttal_scripts/train_phase2_fastvlm_cls_directGrad.sh &
+# bash rebuttal_scripts/train_phase2_fastvlm_cls_GradKD_only.sh &
+# bash rebuttal_scripts/train_phase2_fastvlm_cls_phrase1_K80.sh &
+# bash rebuttal_scripts/train_phase2_fastvlm_cls_phrase1_K100.sh &
+# wait
 
 
 
