@@ -1,4 +1,4 @@
-#1 +120
+#2 -f-/home/ubuntu/aiskylimit_nothing2/text2sql_distillation_draft/run_logs/qwen2.5/20260731_085636/ +a
 #sql
 #v1
 
