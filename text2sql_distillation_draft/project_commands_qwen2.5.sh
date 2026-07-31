@@ -16,13 +16,15 @@ unzip -o benchmarks.zip
 unzip -o data.zip
 unzip -o orig_processed_data.zip
 
-export RUNNER_GPU_LIST="${QWEN25_GPU_LIST:-${RUNNER_GPU_LIST:-0}}"
-export GPUS_PER_JOB="${GPUS_PER_JOB:-1}"
-export RUN_MODE="${RUN_MODE:-sequential}"
+export RUNNER_GPU_LIST="${QWEN25_GPU_LIST:-${RUNNER_GPU_LIST:-0,1,2,3,4,5,6,7}}"
+export GPUS_PER_JOB="${GPUS_PER_JOB:-2}"
+export RUN_MODE="${RUN_MODE:-parallel}"
 export SKIP_EXISTING="${SKIP_EXISTING:-false}"
+export BATCH_SIZE="${BATCH_SIZE:-4}"
+export GRAD_ACC="${GRAD_ACC:-4}"
 export INFER_SEEDS="${INFER_SEEDS:-10,42,50,100,1234}"
-export EVAL_BATCH_SIZE="${EVAL_BATCH_SIZE:-8}"
-export INFER_BATCH_SIZE="${INFER_BATCH_SIZE:-128}"
+export EVAL_BATCH_SIZE="${EVAL_BATCH_SIZE:-16}"
+export INFER_BATCH_SIZE="${INFER_BATCH_SIZE:-200}"
 export SKIP_HF_UPLOAD="${SKIP_HF_UPLOAD:-1}"
 
 BASELINE_DATA_DIR="${BASELINE_DATA_DIR:-orig_processed_data/benchmarks/spider_data/qwen}"

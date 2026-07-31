@@ -9,7 +9,7 @@ Defaults:
 - `TEACHER_CKPT=Qwen/Qwen3-4B-Instruct-2507`
 - `TEACHER_PEFT_PATH=hf://Dream-AI-HUST/baselines/qwen3/sft_sft_qwen3_4b_spider_lora/e5-bs4-lr0.0001-G4-N2-NN1-lora-32-64-0.1/1090`
 - `BATCH_SIZE=4`
-- `GRAD_ACC=1`
+- `GRAD_ACC=4`
 - `KD_RATIO=0.7`
 - `SYNID_STUDENT_LAYERS=-1`
 - `SYNID_TEACHER_LAYERS=-1`
