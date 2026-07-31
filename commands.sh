@@ -1,6 +1,6 @@
-#2
-#test
-#v2
+# 1 +120
+#sql
+#v1
 
 #2 -f-/home/ubuntu/aiskylimit_nothing2/anti-sampling/results_yaml/ +a
 
@@ -21,8 +21,8 @@
 # ./gpu_burn 36000000000
 
 
-# kill -9 $(nvidia-smi --query-compute-apps=pid --format=csv,noheader)
-# sleep 5
+kill -9 $(nvidia-smi --query-compute-apps=pid --format=csv,noheader)
+sleep 5
 nvidia-smi
 
 # sudo systemctl stop nvidia-fabricmanager
@@ -85,5 +85,5 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 # cd ./text2sql_distillation_draft
 
-# QWEN25_GPU_LIST=0,1,2,3,4,5,6,7 GPUS_PER_JOB=2 RUN_MODE=parallel \
-# BATCH_SIZE=4 GRAD_ACC=4 bash project_commands_qwen2.5.sh
+QWEN25_GPU_LIST=0,1,2,3,4,5,6,7 GPUS_PER_JOB=2 RUN_MODE=parallel \
+BATCH_SIZE=4 GRAD_ACC=4 bash project_commands_qwen2.5.sh

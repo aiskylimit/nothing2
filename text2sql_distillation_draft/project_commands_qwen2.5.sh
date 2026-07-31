@@ -9,12 +9,12 @@ RUNNING_EXTRA_ARGS=("$@")
 uv sync
 source .venv/bin/activate
 
-hf download Dream-AI-HUST/sql_benchmarks \
-  --repo-type dataset \
-  --local-dir .
-unzip -o benchmarks.zip
-unzip -o data.zip
-unzip -o orig_processed_data.zip
+# hf download Dream-AI-HUST/sql_benchmarks \
+#   --repo-type dataset \
+#   --local-dir .
+# unzip -o benchmarks.zip
+# unzip -o data.zip
+# unzip -o orig_processed_data.zip
 
 export RUNNER_GPU_LIST="${QWEN25_GPU_LIST:-${RUNNER_GPU_LIST:-0,1,2,3,4,5,6,7}}"
 export GPUS_PER_JOB="${GPUS_PER_JOB:-2}"
@@ -91,7 +91,9 @@ run_group() {
   fi
 }
 
-run_group "sft" "scripts/qwen2.5/sft/train_qwen2.5_0.5b_sft.sh" "${BASELINE_DATA_DIR}"
-run_group "csd" "scripts/qwen2.5/kd/csd/train_0.5b_4b.sh" "${BASELINE_DATA_DIR}"
-run_group "distillm" "scripts/qwen2.5/kd/distillm/train_0.5b_4b.sh" "${BASELINE_DATA_DIR}"
-run_group "synid_sql" "scripts/qwen2.5/synid_sql/synid_ce_keywords_weight_lora_218/train_g"
+run_group "sft" "scripts/qwen2.5/sft/train_qwen2.5_0.5b_sft.sh" "${BASELINE_DATA_DIR}" &
+run_group "csd" "scripts/qwen2.5/kd/csd/train_0.5b_4b.sh" "${BASELINE_DATA_DIR}" &
+run_group "distillm" "scripts/qwen2.5/kd/distillm/train_0.5b_4b.sh" "${BASELINE_DATA_DIR}" &
+run_group "synid_sql" "scripts/qwen2.5/synid_sql/synid_ce_keywords_weight_lora_218/train_g" &
+
+wait
