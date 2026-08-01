@@ -16,8 +16,8 @@ set -e
 # =========================
 # 2. Create Python env and install requirements
 # =========================
-# export UV_PROJECT_ENVIRONMENT=vlm
-# uv sync
+export UV_PROJECT_ENVIRONMENT=vlm
+uv sync
 source vlm/bin/activate
 
 
@@ -27,9 +27,9 @@ source vlm/bin/activate
 # README says this step is optional.
 # Uncomment if you need eval images.
 
-# wget https://huggingface.co/datasets/TIGER-Lab/MMEB-eval/resolve/main/images.zip
-# unzip -o images.zip -d eval_images/
-# rm -rf images.zip
+wget https://huggingface.co/datasets/TIGER-Lab/MMEB-eval/resolve/main/images.zip
+unzip -o images.zip -d eval_images/
+rm -rf images.zip
 
 # =========================
 # 4. Optional train images
@@ -40,7 +40,7 @@ source vlm/bin/activate
 # bash download_traindata.sh
 # bash download_traindata_2.sh
 
-# python download.py
+python download.py
 
 # =========================
 # 5. Optional teacher gradients
@@ -53,17 +53,17 @@ source vlm/bin/activate
 # mv /mnt/disk1/backup_user/dang.nh4/VLM_Embed/teacher_gradients ./teacher_gradients
 
 
-# wget https://huggingface.co/dangnguyens1/teacher_gradients/resolve/main/qwenvl_2b_cls_vqa_grad.zip
-# unzip qwenvl_2b_cls_vqa_grad.zip
-# mv ./mnt/disk1/backup_user/dang.nh4/VLM_Embed/teacher_gradients ./teacher_gradients
-# rm -rf qwenvl_2b_cls_vqa_grad.zip 
+wget https://huggingface.co/dangnguyens1/teacher_gradients/resolve/main/qwenvl_2b_cls_vqa_grad.zip
+unzip qwenvl_2b_cls_vqa_grad.zip
+mv ./mnt/disk1/backup_user/dang.nh4/VLM_Embed/teacher_gradients ./teacher_gradients
+rm -rf qwenvl_2b_cls_vqa_grad.zip 
 
 
 # =========================
 # 6. Fix transformers code
 # =========================
 # README says this fixes the qwen2_vl image processor issue.
-# python fix_lib.py
+python fix_lib.py
 
 
 # =========================
